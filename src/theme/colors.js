@@ -1,4 +1,7 @@
 export const colors = {
+  primary: '#2E86C1',
+  inactive: '#5DADE2',
+  text: '#FFFFFF',
   tabBar: "#222326",
   itemInactive: "#ADAEB3",
   background: "#121212",

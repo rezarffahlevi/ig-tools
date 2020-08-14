@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.kancingmusik"
+        applicationId "com.igtools"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

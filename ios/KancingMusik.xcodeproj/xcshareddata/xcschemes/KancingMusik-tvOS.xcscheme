@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "KancingMusik-tvOS.app"
-               BlueprintName = "KancingMusik-tvOS"
-               ReferencedContainer = "container:KancingMusik.xcodeproj">
+               BuildableName = "igtools-tvOS.app"
+               BlueprintName = "igtools-tvOS"
+               ReferencedContainer = "container:igtools.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "KancingMusik-tvOSTests.xctest"
-               BlueprintName = "KancingMusik-tvOSTests"
-               ReferencedContainer = "container:KancingMusik.xcodeproj">
+               BuildableName = "igtools-tvOSTests.xctest"
+               BlueprintName = "igtools-tvOSTests"
+               ReferencedContainer = "container:igtools.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "KancingMusik-tvOS.app"
-            BlueprintName = "KancingMusik-tvOS"
-            ReferencedContainer = "container:KancingMusik.xcodeproj">
+            BuildableName = "igtools-tvOS.app"
+            BlueprintName = "igtools-tvOS"
+            ReferencedContainer = "container:igtools.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "KancingMusik-tvOS.app"
-            BlueprintName = "KancingMusik-tvOS"
-            ReferencedContainer = "container:KancingMusik.xcodeproj">
+            BuildableName = "igtools-tvOS.app"
+            BlueprintName = "igtools-tvOS"
+            ReferencedContainer = "container:igtools.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

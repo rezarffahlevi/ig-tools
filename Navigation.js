@@ -9,6 +9,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { colors } from "./src/theme";
 import UIHelper from "./src/helpers/UIHelper"
 
+import Login from './src/screens/authentication/Login';
+import OTP from './src/screens/authentication/OTP';
+
 import Home from './src/screens/home/Home';
 import Favorite from './src/screens/favorite/Favorite';
 
@@ -19,12 +22,14 @@ const Tab = createBottomTabNavigator();
 
 const Navigation = () =>
 {
+    const [isLogin, setIsLogin] = useState(false);
+    
     useEffect(() => {
     
     }, [])
     
     return(
-        <Main/>
+        isLogin ? <Main/> : <Authentication/>
     )
 }
 
@@ -67,6 +72,22 @@ const Main = ({  }) => {
                     }}
                 />
             </Tab.Navigator>
+        </NavigationContainer>
+    );
+};
+
+const Authentication = ({  }) => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator
+                initialRouteName="Login"
+                headerMode="none"
+            >
+                <Stack.Screen name="Login" component={Login}
+                />
+                <Stack.Screen name="OTP" component={OTP}
+                />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 };
