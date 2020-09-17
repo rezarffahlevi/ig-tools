@@ -9,47 +9,57 @@ import {
     TextInput,
     TouchableOpacity,
     Text,
-    Alert
+    Alert,
+    Keyboard,
+    ActivityIndicator
 } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors } from "../../theme";
 import TopBar from '../../components/TopBar';
+import AsyncStorage from '@react-native-community/async-storage'
+import { CONSTANT } from '../../helpers/constant'
+import { fetchApi, postApi } from '../../services/Api';
 
-const OTP = () => {
+const OTP = ({navigation, route}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [otp, setOtp] = useState('');
 
-    useEffect(() => {
+    const props = route.params;
 
+    useEffect(() => {
+        // console.log(props)
     }, [])
 
     const onPressOTP = () => {
         Keyboard.dismiss();
         setIsLoading(true);
-        handleOTP()
+        fetchSecurity()
     }
 
-    async function handleOTP() {
-        const params = {
-            method: 'login',
-            username,
-            password
-        }
-
+    async function fetchSecurity() {
         try {
-            const response = await AuthenticationService.fetchApi(params);
-            console.log('res', response);
-            setIsLoading(false);
-            if('checkpoint_url' in response.result)
-            {
-                navigation.push('OTP');
+            const session = JSON.parse(await AsyncStorage.getItem(CONSTANT.KEY_SESSION));
+            const otpCode = otp.replace(/ /g, '');
+            const method = {
+                method: 'security',
+                security_code: otpCode
             }
-            else
+
+            const res = await postApi(method, session);
+            const result = res?.data?.result;
+            console.log('res', method)
+            if(res.data.sessionid)
             {
-                Alert.alert('Failed', 'Incorrect username or password!')
+                await AsyncStorage.setItem(CONSTANT.KEY_SESSION_ID, res.data.sessionid);
+                props.setIsLogin(true);
+            }
+            else {
+                Alert.alert('Invalid', result?.challenge?.errors[0] || 'Invalid OTP code');
+                setIsLoading(false);
             }
         } catch(error){
-            console.log('error login', error);
+            setIsLoading(false);
+            console.log('error otp', error);
             Alert.alert('Error', 'Something went wrong!')
         }
     }
@@ -73,8 +83,8 @@ const OTP = () => {
                     paddingVertical: 15,
                     paddingHorizontal: 15
                 }}>
-                    <Image source={require('../../assets/icons/logo-ig.png')}
-                        style={{ height: 70, width: 250, resizeMode: 'contain', marginBottom: 15 }}
+                    <Image source={require('../../assets/icons/logo.png')}
+                        style={{ height: 80, width: 250, resizeMode: 'contain', marginBottom: 15 }}
                     />
                     <Text style={{
                         color: colors.text,
@@ -132,6 +142,12 @@ const OTP = () => {
                     </View>
                 </View>
                 {/* </ScrollView> */}
+                
+                {isLoading &&
+                    <View style={styles.loading}>
+                        <ActivityIndicator size='large' color={colors.primary}/>
+                    </View>
+                }
             </View>
 
         </SafeAreaView>
@@ -144,6 +160,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.background,
+    },
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(86, 101, 115, 0.7)',
     },
     rowScrollContainer: { flexDirection: "row", marginLeft: 9 },
     centeredText: {

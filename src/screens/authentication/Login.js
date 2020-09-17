@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     SafeAreaView,
     ScrollView,
@@ -14,18 +14,23 @@ import {
     Keyboard
 } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-community/async-storage'
 import { colors } from "../../theme";
 import TopBar from '../../components/TopBar';
+import { CONSTANT } from '../../helpers/constant'
+import { fetchApi, postApi } from '../../services/Api';
 
-import { AuthenticationService } from '../../services/AuthenticationService';
-
-const Login = ({ navigation }) => {
+const Login = ({ navigation, route }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [data, setData] = useState({});
+
+    const props = route.params;
 
     useEffect(() => {
-
+        // console.log(navigation, route)
+        
 
     }, [])
 
@@ -41,57 +46,72 @@ const Login = ({ navigation }) => {
             username,
             password
         }
-
         try {
-            const response = await AuthenticationService.fetchApi(params);
-            console.log('response login', response);
-            setIsLoading(false);
-            if('checkpoint_url' in response.result)
+            const response = await fetchApi(params);
+            const result = response.data.result;
+            // console.log('response login', response);
+            if(result.authenticated)
             {
-                fetchCheckPoint();
-                // navigation.push('OTP');
+                props.setIsLogin(true);
+            }
+            else if('checkpoint_url' in result)
+            {
+                let session = {
+                    checkpoint_url: result.checkpoint_url,
+                    username,
+                    ig_did: response.data.ig_did,
+                    useragent: response.data.useragent,
+                    csrftoken: response.data.csrftoken,
+                    mid: response.data.mid,
+                    ipuser: response.data.ipuser,
+                    choice: 0,
+                }
+                fetchCheckPoint(session);
+                await AsyncStorage.setItem(CONSTANT.KEY_SESSION, JSON.stringify(session));
+            }
+            else
+            {
+                Alert.alert('Failed', 'Incorrect username or password!')
+                setIsLoading(false);
+            }
+        } catch(error){
+            setIsLoading(false);
+            console.log('error login', error);
+            Alert.alert('Error', 'Something went wrong!')
+        }
+    }
+
+    async function fetchCheckPoint(session) {
+        const method = {
+            method: 'checkpoint'
+        }
+        try {
+            const response = await postApi(method, session);
+            // console.log('response checkpoint', response);
+            if(response)
+            {
+                setIsLoading(false);
+                navigation.push('OTP');
             }
             else
             {
                 Alert.alert('Failed', 'Incorrect username or password!')
             }
         } catch(error){
-            console.log('error login', error);
+            console.log('error checkpoint', error);
             Alert.alert('Error', 'Something went wrong!')
         }
     }
 
-    async function fetchCheckPoint() {
-        const params = {
-            method: 'checkpoint',
-        }
-
-        try {
-            const response = await AuthenticationService.fetchApi(params);
-            console.log('response checkpoint', response);
-            setIsLoading(false);
-            // if('checkpoint_url' in response.result)
-            // {
-            //     navigation.push('OTP');
-            // }
-            // else
-            // {
-            //     Alert.alert('Failed', 'Incorrect username or password!')
-            // }
-        } catch(error){
-            console.log('error login', error);
-            Alert.alert('Error', 'Something went wrong!')
-        }
-    }
 
     const disabled = username == '' || password == '';
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
             <View style={styles.container}>
-                <StatusBar
+                {/* <StatusBar
                     backgroundColor={colors.background}
                     barStyle="light-content"
-                />
+                /> */}
                 {/* <ScrollView
                     style={{ width: "100%", flex: 1 }}
                     // contentContainerStyle={{ paddingBottom: PLAYER_HEIGHT }}
@@ -103,8 +123,8 @@ const Login = ({ navigation }) => {
                     paddingVertical: 15,
                     paddingHorizontal: 15
                 }}>
-                    <Image source={require('../../assets/icons/logo-ig.png')}
-                        style={{ height: 70, width: 250, resizeMode: 'contain', marginBottom: 35 }}
+                    <Image source={require('../../assets/icons/logo.png')}
+                        style={{ height: 80, width: 250, resizeMode: 'contain', marginBottom: 35 }}
                     />
                     <View style={{
                         flexDirection: 'row',

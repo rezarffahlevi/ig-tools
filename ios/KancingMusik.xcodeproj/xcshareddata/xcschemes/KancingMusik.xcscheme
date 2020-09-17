@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "igtools.app"
-               BlueprintName = "igtools"
-               ReferencedContainer = "container:igtools.xcodeproj">
+               BuildableName = "hublagram.app"
+               BlueprintName = "hublagram"
+               ReferencedContainer = "container:hublagram.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "igtoolsTests.xctest"
-               BlueprintName = "igtoolsTests"
-               ReferencedContainer = "container:igtools.xcodeproj">
+               BuildableName = "hublagramTests.xctest"
+               BlueprintName = "hublagramTests"
+               ReferencedContainer = "container:hublagram.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "igtools.app"
-            BlueprintName = "igtools"
-            ReferencedContainer = "container:igtools.xcodeproj">
+            BuildableName = "hublagram.app"
+            BlueprintName = "hublagram"
+            ReferencedContainer = "container:hublagram.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "igtools.app"
-            BlueprintName = "igtools"
-            ReferencedContainer = "container:igtools.xcodeproj">
+            BuildableName = "hublagram.app"
+            BlueprintName = "hublagram"
+            ReferencedContainer = "container:hublagram.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

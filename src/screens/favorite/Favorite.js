@@ -13,12 +13,12 @@ const Favorite = () => {
                 barStyle="light-content"
             />
             <TopBar title="Favorite">
-                <Icon
+                {/* <Icon
                     name="account-settings"
                     size={24}
                     color={colors.itemInactive}
                     style={{ position: "absolute", right: 10 }}
-                />
+                /> */}
             </TopBar>
             <ScrollView
                 style={{ width: "100%" }}
