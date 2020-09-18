@@ -16,16 +16,17 @@ const Home = ({ navigation, route }) => {
   }, [])
 
   const checkAccount = async () => {
-    let user = JSON.parse(await AsyncStorage.getItem(CONSTANT.KEY_SESSION));
-    let sessionId = await AsyncStorage.getItem(CONSTANT.KEY_SESSION_ID);
-
-    const params = {
-      method: 'getuser',
-      username: user.username,
-      sessionid: sessionId
-    }
-
     try {
+      setIsLoading(true);
+      let user = JSON.parse(await AsyncStorage.getItem(CONSTANT.KEY_SESSION));
+      let sessionId = await AsyncStorage.getItem(CONSTANT.KEY_SESSION_ID);
+
+      const params = {
+        method: 'getuser',
+        username: user.username,
+        sessionid: sessionId
+      }
+
       const response = await fetchCheckAccount(params);
       setIsLoading(false);
       // console.log('response check', response.data);
@@ -100,7 +101,8 @@ const Home = ({ navigation, route }) => {
               }}
               onPress={() => {
                 navigation.push('FormFitur', {
-                  type: 'follow'
+                  type: 'follow',
+                  checkAccount
                 });
               }}
             >
@@ -132,7 +134,8 @@ const Home = ({ navigation, route }) => {
               }}
               onPress={() => {
                 navigation.push('FormFitur', {
-                  type: 'likes'
+                  type: 'likes',
+                  checkAccount
                 });
               }}
             >

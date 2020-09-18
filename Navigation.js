@@ -58,7 +58,7 @@ const Navigation = () => {
     )
 }
 
-const HomeRoot = ({route }) => {
+const HomeRoot = ({ route }) => {
     return (
         <Tab.Navigator
             initialRouteName="Home"
@@ -120,9 +120,8 @@ const Main = ({ isLogin, setIsLogin }) => {
                     headerShown: false
                 }}
                     initialParams={{ setIsLogin }} />
-                <Stack.Screen name="FormFitur" component={Forms} options={{
-                    headerTitle: "Form",
-                }} />
+                <Stack.Screen name="FormFitur" component={Forms}
+                    options={({ route }) => ({ title: route.params.name })}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -139,7 +138,7 @@ const Authentication = ({ isLogin, setIsLogin }) => {
                     name="OnBoarding"
                     component={Onboarding}
                     options={({ navigation }) => ({
-                        headerShown:false
+                        headerShown: false
                     })}
                 />
                 <Stack.Screen name="Login" component={Login} options={{

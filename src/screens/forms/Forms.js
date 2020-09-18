@@ -6,6 +6,7 @@ import TopBar from '../../components/TopBar';
 import { Picker } from '@react-native-community/picker';
 import AsyncStorage from "@react-native-community/async-storage";
 import { CONSTANT } from '../../helpers/constant';
+import { toUcFirst } from '../../helpers';
 import { fetchApi, postApi, fetchCheckAccount } from '../../services/Api';
 
 const Forms = ({ navigation, route }) => {
@@ -16,6 +17,7 @@ const Forms = ({ navigation, route }) => {
     const { params } = route;
 
     useEffect(() => {
+        navigation.setOptions({ title: 'Form '+ toUcFirst( params.type) })
         setType(params.type);
     }, [])
 
@@ -33,22 +35,24 @@ const Forms = ({ navigation, route }) => {
 
             let user = JSON.parse(await AsyncStorage.getItem(CONSTANT.KEY_SESSION));
             let sessionId = await AsyncStorage.getItem(CONSTANT.KEY_SESSION_ID);
-    
-            const params = {
+
+            const param = {
                 method: type,
                 username: user.username,
                 sessionid: sessionId,
                 link: link,
                 jumlah: jumlah
             }
-    
-            const response = await postApi(params, params);
+
+            const response = await postApi(param, param);
             setIsLoading(false);
             // console.log('response fitur', response);
             if (response.data.result) {
                 Alert.alert('Berhasil', response.data.message, [
                     {
-                        text: "OK", onPress: () => navigation.pop()
+                        text: "OK", onPress: () => { 
+                            navigation.pop();
+                            params.checkAccount(); }
                     }]);
             }
             else {
