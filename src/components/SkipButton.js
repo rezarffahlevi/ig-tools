@@ -1,17 +1,18 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
+import { colors, fontsFamilys } from "../theme";
 
 const SkipButton = props => {
      return (
         <TouchableOpacity style={[styles.container, props.style]} onPress={props.onClick}>
-            <Text style={styles.title}>Lewati</Text>
+            <Text style={styles.title}>LEWATI</Text>
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FFF',
+        backgroundColor: colors.primary,
         borderRadius: 25,
         paddingVertical: 7,
         paddingHorizontal: 14,
@@ -20,7 +21,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontFamily: fontsFamilys.bold,
+        color: colors.textReverse,
     }
 });
 

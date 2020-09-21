@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage'
-import { colors } from "../../theme";
+import { colors, fontsFamilys } from "../../theme";
 import TopBar from '../../components/TopBar';
 import { CONSTANT } from '../../helpers/constant'
 import { fetchApi, postApi } from '../../services/Api';
@@ -123,7 +123,7 @@ const Login = ({ navigation, route }) => {
                     paddingVertical: 15,
                     paddingHorizontal: 15
                 }}>
-                    <Image source={require('../../assets/icons/logo.png')}
+                    <Image source={require('../../assets/icons/logo-black.png')}
                         style={{ height: 80, width: 250, resizeMode: 'contain', marginBottom: 35 }}
                     />
                     <View style={{
@@ -139,7 +139,7 @@ const Login = ({ navigation, route }) => {
                                 paddingHorizontal: 15,
                                 borderColor: colors.lightGrey,
                                 borderWidth: 1,
-                                backgroundColor: colors.tabBar,
+                                backgroundColor: colors.background,
                                 color: colors.text,
                                 borderRadius: 5
                             }}
@@ -162,7 +162,7 @@ const Login = ({ navigation, route }) => {
                                 paddingHorizontal: 15,
                                 borderColor: colors.lightGrey,
                                 borderWidth: 1,
-                                backgroundColor: colors.tabBar,
+                                backgroundColor: colors.background,
                                 color: colors.text,
                                 borderRadius: 5
                             }}
@@ -196,8 +196,10 @@ const Login = ({ navigation, route }) => {
                             onPress={onPressLogin}
                         >
                             <Text style={{
-                                color: colors.text
-                            }}>Log In</Text>
+                                color: colors.textReverse,
+                                fontFamily: fontsFamilys.bold,
+                                fontSize: 21
+                            }}>LOGIN</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

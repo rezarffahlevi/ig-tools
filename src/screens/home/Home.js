@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, ScrollView, StatusBar, View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors } from "../../theme";
+import { colors, fontsFamilys } from "../../theme";
 import TopBar from '../../components/TopBar';
 import AsyncStorage from "@react-native-community/async-storage";
 import { CONSTANT } from '../../helpers/constant';
@@ -54,11 +54,11 @@ const Home = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={styles.container}>
-        <StatusBar
+        {/* <StatusBar
           backgroundColor={colors.background}
           barStyle="light-content"
-        />
-        <TopBar title="Home">
+        /> */}
+        <TopBar title="HOME">
           {/* <Icon
             name="account-settings"
             size={24}
@@ -71,13 +71,16 @@ const Home = ({ navigation, route }) => {
           contentContainerStyle={{ alignItems: 'center' }}
           showsVerticalScrollIndicator={false}>
           <Text style={{
-            color: colors.white,
+            color: colors.text,
             fontSize: 21,
-            paddingTop: 25
-          }}>My Point:</Text>
+            paddingTop: 25,
+            fontFamily: fontsFamilys.regular,
+          }}>MY POINT:</Text>
           <Text style={{
-            color: colors.white,
-            fontSize: 45
+            color: colors.text,
+            fontSize: 45,
+            fontFamily: fontsFamilys.bold,
+            // fontWeight:'bold'
           }}>{myPoin}</Text>
           <View style={{
             flexDirection: 'row',
@@ -109,14 +112,14 @@ const Home = ({ navigation, route }) => {
               <Icon
                 name="account"
                 size={30}
-                color={colors.white}
+                color={colors.textReverse}
               />
               <Text style={{
                 fontSize: 16,
-                fontWeight: 'bold',
-                color: colors.text,
+                fontFamily: fontsFamilys.bold,
+                color: colors.textReverse,
                 marginTop: 10
-              }}>Follows</Text>
+              }}>FOLLOWS</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -142,14 +145,14 @@ const Home = ({ navigation, route }) => {
               <Icon
                 name="heart"
                 size={30}
-                color={colors.white}
+                color={colors.textReverse}
               />
               <Text style={{
                 fontSize: 16,
-                fontWeight: 'bold',
-                color: colors.text,
+                fontFamily: fontsFamilys.bold,
+                color: colors.textReverse,
                 marginTop: 10
-              }}>Likes</Text>
+              }}>LIKES</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

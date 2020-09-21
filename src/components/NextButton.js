@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
-import { colors } from "../theme";
+import { colors, fontsFamilys } from "../theme";
 
 const Name = props => {
      return (
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 21,
         color: '#FFF',
-        fontFamily: 'HelveticaNeue'
+        fontFamily: fontsFamilys.regular
     }
 });
 

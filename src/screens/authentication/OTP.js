@@ -14,7 +14,7 @@ import {
     ActivityIndicator
 } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors } from "../../theme";
+import { colors, fontsFamilys } from "../../theme";
 import TopBar from '../../components/TopBar';
 import AsyncStorage from '@react-native-community/async-storage'
 import { CONSTANT } from '../../helpers/constant'
@@ -68,10 +68,10 @@ const OTP = ({navigation, route}) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
             <View style={styles.container}>
-                <StatusBar
+                {/* <StatusBar
                     backgroundColor={colors.background}
                     barStyle="light-content"
-                />
+                /> */}
                 {/* <ScrollView
                     style={{ width: "100%", flex: 1 }}
                     // contentContainerStyle={{ paddingBottom: PLAYER_HEIGHT }}
@@ -83,12 +83,13 @@ const OTP = ({navigation, route}) => {
                     paddingVertical: 15,
                     paddingHorizontal: 15
                 }}>
-                    <Image source={require('../../assets/icons/logo.png')}
+                    <Image source={require('../../assets/icons/logo-black.png')}
                         style={{ height: 80, width: 250, resizeMode: 'contain', marginBottom: 15 }}
                     />
                     <Text style={{
                         color: colors.text,
-                        paddingVertical: 20
+                        paddingVertical: 20,
+                        fontFamily: fontsFamilys.semiBold,
                     }}>Please check the code we sent you</Text>
                     <View style={{
                         flexDirection: 'row',
@@ -103,9 +104,10 @@ const OTP = ({navigation, route}) => {
                                 paddingHorizontal: 15,
                                 borderColor: colors.lightGrey,
                                 borderWidth: 1,
-                                backgroundColor: colors.tabBar,
+                                backgroundColor: colors.background,
                                 color: colors.text,
-                                borderRadius: 5
+                                borderRadius: 5,
+                                // fontFamily: fontsFamilys.regular,
                             }}
                             placeholder="OTP Code"
                             placeholderTextColor={colors.lightGrey}
@@ -136,8 +138,10 @@ const OTP = ({navigation, route}) => {
                             onPress={onPressOTP}
                         >
                             <Text style={{
-                                color: colors.text
-                            }}>Verify</Text>
+                                color: colors.textReverse,
+                                fontFamily: fontsFamilys.bold,
+                                fontSize: 21
+                            }}>VERIFY</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

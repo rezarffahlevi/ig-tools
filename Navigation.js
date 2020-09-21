@@ -5,7 +5,7 @@ import { createStackNavigator, TransitionPresets, HeaderBackButton } from '@reac
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { colors } from "./src/theme";
+import { colors, fontsFamilys } from "./src/theme";
 import UIHelper from "./src/helpers/UIHelper"
 import { CONSTANT } from './src/helpers/constant'
 
@@ -71,10 +71,11 @@ const HomeRoot = ({ route }) => {
                     // borderTopWidth: 0,
                     // backgroundColor: '#FCF6EE'
                 },
-                activeTintColor: colors.white,
+                activeTintColor: colors.itemActive,
                 inactiveTintColor: colors.itemInactive,
                 labelStyle: {
-                    fontSize: 11,
+                    fontSize: 14,
+                    fontFamily: fontsFamilys.bold,
                     marginBottom: 5
                 }
             }}
@@ -82,7 +83,7 @@ const HomeRoot = ({ route }) => {
         >
             <Tab.Screen name="Home" component={Home}
                 options={{
-                    tabBarLabel: 'Home',
+                    tabBarLabel: 'HOME',
                     tabBarIcon: ({ color, focused }) => (
                         <Icon name={focused ? 'home' : 'home-outline'} size={25} color={color} />
                     ),
@@ -90,7 +91,7 @@ const HomeRoot = ({ route }) => {
             />
             <Tab.Screen name="Settings" component={Settings}
                 options={{
-                    tabBarLabel: 'Settings',
+                    tabBarLabel: 'SETTINGS',
                     tabBarIcon: ({ color, focused }) => (
                         <Icon name={focused ? 'hammer-wrench' : 'hammer-wrench'} size={25} color={color} />
                     ),
@@ -121,7 +122,7 @@ const Main = ({ isLogin, setIsLogin }) => {
                 }}
                     initialParams={{ setIsLogin }} />
                 <Stack.Screen name="FormFitur" component={Forms}
-                    options={({ route }) => ({ title: route.params.name })}/>
+                    options={({ route }) => ({ title: route.params.name, headerTitleStyle:{fontFamily:fontsFamilys.bold} })}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

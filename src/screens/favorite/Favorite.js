@@ -8,10 +8,10 @@ const Favorite = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
         <View style={styles.container}>
-            <StatusBar
+            {/* <StatusBar
                 backgroundColor={colors.background}
                 barStyle="light-content"
-            />
+            /> */}
             <TopBar title="Favorite">
                 {/* <Icon
                     name="account-settings"

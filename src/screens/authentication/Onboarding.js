@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { View, StyleSheet, Text, Image, SafeAreaView, BackHandler, Alert } from 'react-native';
 import NextButton from '../../components/NextButton';
 import { DotBold, DotLight } from '../../components/DotSlider';
-import { colors } from "../../theme";
+import { colors, fontsFamilys } from "../../theme";
 import SkipButton from "../../components/SkipButton"
 
 const Onboarding = ({ navigation, route }) => {
@@ -65,7 +65,7 @@ const One = ({navigation, setPage }) => (
         <Text style={styles.textBody}>Kami akan terus memberikan layanan yang berkualitas kepada seluruh pengguna Aplikasi ini, dan menjamin bahwa setiap service yang kami berikan kepada anda adalah kualitas terbaik, baik pada fitur Followers maupun Instagram.</Text>
         <NextButton onClick={() => {
             setPage(1);
-        }}>Lanjut</NextButton>
+        }}>LANJUT</NextButton>
         <View style={{ flexDirection: 'row', marginVertical: 40 }}>
             <DotBold />
             <DotLight onPress={() => setPage(1)} />
@@ -88,7 +88,7 @@ const Two = ({navigation, setPage }) => (
         <Text style={styles.textBody}>Desain pada aplikasi ini telah kami buat se-simpel mungkin sehingga memudahkan Anda dalam penggunaan Aplikasi ini. Kami juga menyediakan beberapa petunjuk dalam penggunaan Aplikasi ini agar Anda dapat lebih nyaman.</Text>
         <NextButton onClick={() => {
             setPage(2);
-        }}>Lanjut</NextButton>
+        }}>LANJUT</NextButton>
         <View style={{ flexDirection: 'row', marginVertical: 40 }}>
             <DotLight onPress={() => setPage(0)} />
             <DotBold />
@@ -109,7 +109,7 @@ const Three = ({ navigation, setPage }) => (
         <NextButton onClick={() => {
             setPage(3);
             navigation.push("Login",);
-        }}>Lanjut</NextButton>
+        }}>LANJUT</NextButton>
         <View style={{ flexDirection: 'row', marginVertical: 40 }}>
             <DotLight onPress={() => setPage(0)} />
             <DotLight onPress={() => setPage(1)} />
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontSize: 28,
-        fontFamily: 'HelveticaNeue-Bold',
+        fontFamily: fontsFamilys.bold,
         color: colors.text,
     },
     textBody: {
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: colors.text,
         lineHeight: 22,
-        fontFamily: 'Quicksand-Regular'
+        fontFamily: fontsFamilys.regular
 
     }
 });

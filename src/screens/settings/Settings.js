@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView, ScrollView, StatusBar, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors } from "../../theme";
+import { colors, fontsFamilys } from "../../theme";
 import TopBar from '../../components/TopBar';
 import AsyncStorage from "@react-native-community/async-storage";
 import { CONSTANT } from '../../helpers/constant';
@@ -17,10 +17,10 @@ const Settings = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={styles.container}>
-        <StatusBar
+        {/* <StatusBar
           backgroundColor={colors.background}
           barStyle="light-content"
-        />
+        /> */}
         <TopBar title="Settings">
           {/* <Icon
                     name="account-settings"
@@ -54,14 +54,14 @@ const Settings = ({ navigation, route }) => {
             <Icon
               name="logout"
               size={30}
-              color={colors.white}
+              color={colors.textReverse}
             />
             <Text style={{
               fontSize: 16,
-              fontWeight: 'bold',
-              color: colors.text,
+              fontFamily: fontsFamilys.bold,
+              color: colors.textReverse,
               marginTop: 10
-            }}>Logout</Text>
+            }}>LOGOUT</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

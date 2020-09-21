@@ -1,6 +1,6 @@
 import React from "react"
 import { Text, View } from "react-native"
-import { colors } from "../theme"
+import { colors, fontsFamilys } from "../theme"
 
 const TopBar = ({
   title,
@@ -17,10 +17,11 @@ const TopBar = ({
       }}>
       <Text
         style={{
-          color: "white",
+          color: colors.textReverse,
           alignSelf: "center",
-          fontSize: 16,
-          fontWeight: "bold",
+          fontSize: 21,
+          // fontWeight: "bold",
+          fontFamily: fontsFamilys.bold
         }}>
         {title}
       </Text>

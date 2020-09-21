@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, StatusBar, View, StyleSheet, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors } from "../../theme";
+import { colors, fontsFamilys } from "../../theme";
 import TopBar from '../../components/TopBar';
 import { Picker } from '@react-native-community/picker';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -9,15 +9,18 @@ import { CONSTANT } from '../../helpers/constant';
 import { toUcFirst } from '../../helpers';
 import { fetchApi, postApi, fetchCheckAccount } from '../../services/Api';
 
+
+
 const Forms = ({ navigation, route }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [type, setType] = useState('');
     const [link, setLink] = useState('');
     const [jumlah, setJumlah] = useState('');
+    const [optionPoints, setOptionPoints] = useState(["1", "2", "5", "10"]);
     const { params } = route;
 
     useEffect(() => {
-        navigation.setOptions({ title: 'Form '+ toUcFirst( params.type) })
+        navigation.setOptions({ title: 'Form ' + toUcFirst(params.type) })
         setType(params.type);
     }, [])
 
@@ -50,9 +53,10 @@ const Forms = ({ navigation, route }) => {
             if (response.data.result) {
                 Alert.alert('Berhasil', response.data.message, [
                     {
-                        text: "OK", onPress: () => { 
+                        text: "OK", onPress: () => {
                             navigation.pop();
-                            params.checkAccount(); }
+                            params.checkAccount();
+                        }
                     }]);
             }
             else {
@@ -68,10 +72,10 @@ const Forms = ({ navigation, route }) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
             <View style={styles.container}>
-                <StatusBar
+                {/* <StatusBar
                     backgroundColor={colors.background}
                     barStyle="light-content"
-                />
+                /> */}
                 <ScrollView
                     style={{ width: "100%" }}
                     contentContainerStyle={{ padding: 16 }}
@@ -104,7 +108,7 @@ const Forms = ({ navigation, route }) => {
                     <View style={{ paddingVertical: 5 }}>
                         <Text style={{
                             fontSize: 16,
-                            fontWeight: 'bold',
+                            fontFamily: fontsFamilys.bold,
                             color: colors.text,
                             paddingVertical: 10
                         }}>Link</Text>
@@ -115,7 +119,7 @@ const Forms = ({ navigation, route }) => {
                                 paddingHorizontal: 15,
                                 borderColor: colors.lightGrey,
                                 borderWidth: 1,
-                                backgroundColor: colors.tabBar,
+                                backgroundColor: colors.background,
                                 color: colors.text,
                                 borderRadius: 5
                             }}
@@ -129,38 +133,46 @@ const Forms = ({ navigation, route }) => {
                     <View style={{ paddingVertical: 5 }}>
                         <Text style={{
                             fontSize: 16,
-                            fontWeight: 'bold',
+                            fontFamily: fontsFamilys.bold,
                             color: colors.text,
                             paddingVertical: 10
                         }}>Jumlah</Text>
-                        <Picker
-                            selectedValue={jumlah}
-                            style={{
-                                flex: 1,
-                                height: 50,
-                                paddingHorizontal: 15,
-                                borderColor: colors.lightGrey,
-                                borderWidth: 1,
-                                backgroundColor: colors.tabBar,
-                                color: colors.text,
-                                borderRadius: 5
-                            }}
-                            onValueChange={(itemValue, itemIndex) =>
-                                setJumlah(itemValue)
-                            }>
-                            <Picker.Item label="Pilih jumlah poin" value="" />
-                            <Picker.Item label="1" value="1" />
-                            <Picker.Item label="2" value="2" />
-                            <Picker.Item label="5" value="5" />
-                            <Picker.Item label="10" value="10" />
-                        </Picker>
+                        <View style={{
+                            flex: 1,
+                            height: 50,
+                            borderColor: colors.lightGrey,
+                            borderWidth: 1,
+                            borderRadius: 5
+                        }}>
+                            <Picker
+                                selectedValue={jumlah}
+                                style={{
+                                    flex: 1,
+                                    height: 40,
+                                    paddingHorizontal: 15,
+                                    borderColor: colors.lightGrey,
+                                    borderWidth: 1,
+                                    backgroundColor: colors.background,
+                                    color: colors.text,
+                                    borderRadius: 5
+                                }}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setJumlah(itemValue)
+                                }>
+                                <Picker.Item label="Pilih jumlah poin" value="" />
+                                {
+                                    optionPoints.map(dt =>
+                                        <Picker.Item value={dt} key={dt} label={dt + (params.type == 'follow' ? ' = ' + (dt * 2) + ' Followers' : ' = ' + (dt * 5) + ' Likes')} />)
+                                }
+                            </Picker>
+                        </View>
                     </View>
 
                     <TouchableOpacity
                         style={{
                             flex: 1,
                             marginTop: 25,
-                            paddingVertical: 20,
+                            paddingVertical: 17,
                             paddingHorizontal: 15,
                             marginRight: 8,
                             borderColor: colors.background,
@@ -175,10 +187,10 @@ const Forms = ({ navigation, route }) => {
                         }}
                     >
                         <Text style={{
-                            fontSize: 16,
-                            fontWeight: 'bold',
-                            color: colors.text,
-                        }}>Submit</Text>
+                            color: colors.textReverse,
+                            fontFamily: fontsFamilys.bold,
+                            fontSize: 18
+                        }}>SUBMIT</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>
