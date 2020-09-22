@@ -19,7 +19,7 @@ const TopBar = ({
         style={{
           color: colors.textReverse,
           alignSelf: "center",
-          fontSize: 21,
+          fontSize: 18,
           // fontWeight: "bold",
           fontFamily: fontsFamilys.bold
         }}>

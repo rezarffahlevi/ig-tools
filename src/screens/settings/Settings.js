@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ScrollView, StatusBar, View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { SafeAreaView, ScrollView, StatusBar, View, StyleSheet, TouchableOpacity, Text, ImageBackground } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, fontsFamilys } from "../../theme";
 import TopBar from '../../components/TopBar';
@@ -29,6 +29,7 @@ const Settings = ({ navigation, route }) => {
                     style={{ position: "absolute", right: 10 }}
                 /> */}
         </TopBar>
+        <ImageBackground source={require('../../assets/images/gray-bg.jpg')} style={{ flex: 1 }}>
         <ScrollView
           style={{ width: "100%" }}
           contentContainerStyle={{ padding: 16 }}
@@ -64,6 +65,7 @@ const Settings = ({ navigation, route }) => {
             }}>LOGOUT</Text>
           </TouchableOpacity>
         </ScrollView>
+        </ImageBackground>
       </View>
 
     </SafeAreaView>

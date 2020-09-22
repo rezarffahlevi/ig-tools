@@ -172,9 +172,8 @@ const Forms = ({ navigation, route }) => {
                         style={{
                             flex: 1,
                             marginTop: 25,
-                            paddingVertical: 17,
-                            paddingHorizontal: 15,
-                            marginRight: 8,
+                            paddingVertical: 16,
+                            // paddingHorizontal: 15,
                             borderColor: colors.background,
                             // borderWidth: 1,
                             backgroundColor: colors.primary,

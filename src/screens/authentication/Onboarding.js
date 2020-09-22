@@ -53,7 +53,7 @@ const Onboarding = ({ navigation, route }) => {
 
 const One = ({navigation, setPage }) => (
     <View style={styles.container}>
-        <SkipButton style={{ position: 'absolute', top: 10, right: 10 }} onClick={() => {
+        <SkipButton style={{ position: 'absolute', top: 0, right: 0 }} onClick={() => {
             setPage(3);
             navigation.push("Login",);
         }} />
@@ -76,7 +76,7 @@ const One = ({navigation, setPage }) => (
 
 const Two = ({navigation, setPage }) => (
     <View style={styles.container}>
-        <SkipButton style={{ position: 'absolute', top: 10, right: 10 }} onClick={() => {
+        <SkipButton style={{ position: 'absolute', top: 0, right: 0 }} onClick={() => {
             setPage(3);
             navigation.push("Login",);
         }} />

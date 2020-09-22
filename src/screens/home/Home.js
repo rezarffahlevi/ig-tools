@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, StatusBar, View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from "react-native";
+import { SafeAreaView, ScrollView, StatusBar, View, StyleSheet, TouchableOpacity, Text, ActivityIndicator, Alert, Image, ImageBackground, Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, fontsFamilys } from "../../theme";
 import TopBar from '../../components/TopBar';
 import AsyncStorage from "@react-native-community/async-storage";
 import { CONSTANT } from '../../helpers/constant';
 import { fetchApi, postApi, fetchCheckAccount } from '../../services/Api';
+import Axios from "axios";
 
 const Home = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [myPoin, setMyPoin] = useState(0);
+  const [userInfo, setUserInfo] = useState({});
+
+  const props = route.params;
 
   useEffect(() => {
     checkAccount();
+    // setIsLoading(false);
   }, [])
 
   const checkAccount = async () => {
@@ -28,6 +33,9 @@ const Home = ({ navigation, route }) => {
       }
 
       const response = await fetchCheckAccount(params);
+      const getIg = await Axios.get(`https://instagram.com/${user.username}/?__a=1`);
+      setUserInfo(getIg.data.graphql.user);
+      // console.log('user', getIg.data.graphql.user);
       setIsLoading(false);
       // console.log('response check', response.data);
       if (response.data.result) {
@@ -46,7 +54,7 @@ const Home = ({ navigation, route }) => {
     } catch (error) {
       setIsLoading(false);
       console.log('error check', error);
-      Alert.alert('Error', 'Something went wrong!')
+      Alert.alert('Error', 'Something went wrong!');
     }
 
   }
@@ -58,7 +66,7 @@ const Home = ({ navigation, route }) => {
           backgroundColor={colors.background}
           barStyle="light-content"
         /> */}
-        <TopBar title="HOME">
+        <TopBar title="Home">
           {/* <Icon
             name="account-settings"
             size={24}
@@ -66,96 +74,182 @@ const Home = ({ navigation, route }) => {
             style={{ position: "absolute", right: 10 }}
           /> */}
         </TopBar>
-        <ScrollView
-          style={{ width: "100%" }}
-          contentContainerStyle={{ alignItems: 'center' }}
-          showsVerticalScrollIndicator={false}>
-          <Text style={{
-            color: colors.text,
-            fontSize: 21,
-            paddingTop: 25,
-            fontFamily: fontsFamilys.regular,
-          }}>MY POINT:</Text>
-          <Text style={{
-            color: colors.text,
-            fontSize: 45,
-            fontFamily: fontsFamilys.bold,
-            // fontWeight:'bold'
-          }}>{myPoin}</Text>
-          <View style={{
-            flexDirection: 'row',
-            paddingHorizontal: 15,
-            paddingVertical: 5,
-            marginTop: 25,
-            // flex: 1,
-          }}>
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                paddingVertical: 20,
-                paddingHorizontal: 15,
-                marginRight: 8,
-                borderColor: colors.background,
-                // borderWidth: 1,
-                backgroundColor: colors.primary,
-                borderRadius: 5,
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-              onPress={() => {
-                navigation.push('FormFitur', {
-                  type: 'follow',
-                  checkAccount
-                });
-              }}
-            >
-              <Icon
-                name="account"
-                size={30}
-                color={colors.textReverse}
-              />
-              <Text style={{
-                fontSize: 16,
-                fontFamily: fontsFamilys.bold,
-                color: colors.textReverse,
-                marginTop: 10
-              }}>FOLLOWS</Text>
-            </TouchableOpacity>
+        <ImageBackground source={require('../../assets/images/gray-bg.jpg')} style={{ flex: 1 }}>
+          <ScrollView
+            style={{ width: "100%", flex: 1 }}
+            contentContainerStyle={{ alignItems: 'center' }}
+            showsVerticalScrollIndicator={false}>
+            <Image source={{ uri: userInfo.profile_pic_url }} style={{ height: 100, width: 100, resizeMode: 'contain', borderRadius: 50, marginTop: 20 }} />
+            <Text style={{
+              color: colors.text,
+              fontSize: 21,
+              paddingTop: 10,
+              fontFamily: fontsFamilys.bold,
+            }}>{userInfo.full_name}</Text>
+            <Text style={{
+              color: colors.text,
+              fontSize: 14,
+              paddingTop: 2,
+              fontFamily: fontsFamilys.regular,
+            }}>@{userInfo.username}</Text>
 
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                paddingVertical: 20,
-                paddingHorizontal: 15,
-                marginLeft: 8,
-                borderColor: colors.background,
-                // borderWidth: 1,
-                backgroundColor: colors.primary,
-                borderRadius: 5,
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-              onPress={() => {
-                navigation.push('FormFitur', {
-                  type: 'likes',
-                  checkAccount
-                });
-              }}
-            >
-              <Icon
-                name="heart"
-                size={30}
-                color={colors.textReverse}
-              />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', flex: 1, width: Dimensions.get('window').width, marginTop: 20 }}>
+              <View style={{ alignItems: 'center', marginHorizontal: 5 }}>
+                <Text style={{
+                  color: colors.text,
+                  fontSize: 18,
+                  fontFamily: fontsFamilys.semiBold,
+                  // fontWeight:'bold'
+                }}>{myPoin}</Text>
+                <Text style={{
+                  color: colors.text,
+                  fontSize: 14,
+                  fontFamily: fontsFamilys.regular,
+                }}>MY POINTS</Text>
+              </View>
+              <View style={{ alignItems: 'center', marginHorizontal: 5 }}>
+                <Text style={{
+                  color: colors.text,
+                  fontSize: 18,
+                  fontFamily: fontsFamilys.semiBold,
+                  // fontWeight:'bold'
+                }}>{userInfo?.edge_owner_to_timeline_media?.count}</Text>
+                <Text style={{
+                  color: colors.text,
+                  fontSize: 14,
+                  fontFamily: fontsFamilys.regular,
+                }}>POSTS</Text>
+              </View>
+              <View style={{ alignItems: 'center', marginHorizontal: 5 }}>
+                <Text style={{
+                  color: colors.text,
+                  fontSize: 18,
+                  fontFamily: fontsFamilys.semiBold,
+                  // fontWeight:'bold'
+                }}>{userInfo?.edge_follow?.count}</Text>
+                <Text style={{
+                  color: colors.text,
+                  fontSize: 14,
+                  fontFamily: fontsFamilys.regular,
+                }}>FOLLOWING</Text>
+              </View>
+              <View style={{ alignItems: 'center', marginHorizontal: 5 }}>
+                <Text style={{
+                  color: colors.text,
+                  fontSize: 18,
+                  fontFamily: fontsFamilys.semiBold,
+                  // fontWeight:'bold'
+                }}>{userInfo?.edge_followed_by?.count}</Text>
+                <Text style={{
+                  color: colors.text,
+                  fontSize: 14,
+                  fontFamily: fontsFamilys.regular,
+                }}>FOLLOWERS</Text>
+              </View>
+            </View>
+
+            <View style={{
+              padding: 16,
+              alignSelf: 'stretch',
+              flex: 1,
+              // marginTop: 15,
+              // flex: 1,
+            }}>
               <Text style={{
-                fontSize: 16,
-                fontFamily: fontsFamilys.bold,
-                color: colors.textReverse,
-                marginTop: 10
-              }}>LIKES</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+                color: colors.text,
+                fontSize: 18,
+                fontFamily: fontsFamilys.semiBold,
+                alignSelf: 'flex-start',
+              }}>FEATURE</Text>
+
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  borderColor: colors.background,
+                  // borderWidth: 1,
+                  paddingHorizontal: 16,
+                  paddingVertical: 16,
+                  marginVertical: 5,
+                  backgroundColor: colors.primary,
+                  borderRadius: 5,
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+                onPress={() => {
+                  navigation.push('FormFitur', {
+                    type: 'follow',
+                    checkAccount
+                  });
+                }}
+              >
+                <View style={{
+                  flexDirection: 'row', alignItems: 'center',
+                }}>
+                  <Icon
+                    name="account-multiple-plus"
+                    size={30}
+                    color={colors.textReverse}
+                  />
+                  <Text style={{
+                    fontSize: 16,
+                    fontFamily: fontsFamilys.bold,
+                    color: colors.textReverse,
+                    paddingHorizontal: 16
+                  }}>FOLLOWS</Text>
+                </View>
+                <Icon
+                  name="chevron-right"
+                  size={30}
+                  color={colors.textReverse}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  borderColor: colors.background,
+                  // borderWidth: 1,
+                  paddingVertical: 16,
+                  marginVertical: 5,
+                  paddingHorizontal: 16,
+                  backgroundColor: colors.primary,
+                  borderRadius: 5,
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+                onPress={() => {
+                  navigation.push('FormFitur', {
+                    type: 'likes',
+                    checkAccount
+                  });
+                }}
+              >
+                <View style={{
+                  flexDirection: 'row', alignItems: 'center'
+                }}>
+                  <Icon
+                    name="heart"
+                    size={30}
+                    color={colors.textReverse}
+                  />
+                  <Text style={{
+                    fontSize: 16,
+                    fontFamily: fontsFamilys.bold,
+                    color: colors.textReverse,
+                    paddingHorizontal: 16
+                  }}>LIKES</Text>
+                </View>
+                <Icon
+                  name="chevron-right"
+                  size={30}
+                  color={colors.textReverse}
+                />
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </ImageBackground>
       </View>
       {isLoading &&
         <View style={styles.loading}>

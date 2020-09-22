@@ -74,7 +74,7 @@ const HomeRoot = ({ route }) => {
                 activeTintColor: colors.itemActive,
                 inactiveTintColor: colors.itemInactive,
                 labelStyle: {
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: fontsFamilys.bold,
                     marginBottom: 5
                 }
@@ -88,12 +88,13 @@ const HomeRoot = ({ route }) => {
                         <Icon name={focused ? 'home' : 'home-outline'} size={25} color={color} />
                     ),
                 }}
+                initialParams={route.params}
             />
             <Tab.Screen name="Settings" component={Settings}
                 options={{
                     tabBarLabel: 'SETTINGS',
                     tabBarIcon: ({ color, focused }) => (
-                        <Icon name={focused ? 'hammer-wrench' : 'hammer-wrench'} size={25} color={color} />
+                        <Icon name={focused ? 'cog' : 'cog-outline'} size={25} color={color} />
                     ),
                 }}
                 initialParams={route.params}
@@ -112,7 +113,8 @@ const Main = ({ isLogin, setIsLogin }) => {
                         backgroundColor: colors.tabBar,
                     },
                     headerTitleStyle: {
-                        color: colors.white
+                        color: colors.white,
+                        fontSize:18
                     },
                     headerTintColor: colors.white
                 }}
