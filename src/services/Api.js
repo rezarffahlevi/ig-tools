@@ -1,12 +1,14 @@
 
 
-import { CONSTANT } from '../helpers/constant'
-import axios from 'axios'
-import { jsonToQueryString } from '../helpers/index'
+import { CONSTANT } from '../helpers/constant';
+import axios from 'axios';
+import { jsonToQueryString } from '../helpers/index';
+import UserAgent from 'react-native-user-agent';
 
 export async function fetchApi(params, options) {
     const header = {
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'User-Agent': UserAgent.getUserAgent(),
     };
     const url = 'api.php';
     let config = {
@@ -33,7 +35,8 @@ export async function postApi(method, params) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'multipart/form-data',
-            'Authorization': 'Basic YnJva2VyOmJyb2tlcl8xMjM='
+            'Authorization': 'Basic YnJva2VyOmJyb2tlcl8xMjM=',
+            'User-Agent': UserAgent.getUserAgent(),
         }
     });
 }
@@ -55,7 +58,8 @@ export async function fetchCheckAccount(method) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'multipart/form-data',
-            'Authorization': 'Basic YnJva2VyOmJyb2tlcl8xMjM='
+            'Authorization': 'Basic YnJva2VyOmJyb2tlcl8xMjM=',
+            'User-Agent': UserAgent.getUserAgent(),
         }
     });
 }

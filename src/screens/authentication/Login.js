@@ -49,9 +49,20 @@ const Login = ({ navigation, route }) => {
         try {
             const response = await fetchApi(params);
             const result = response.data.result;
-            // console.log('response login', response);
+            console.log('response login', response);
             if(result.authenticated)
             {
+                let session = {
+                    username,
+                    ig_did: response.data.ig_did,
+                    useragent: response.data.useragent,
+                    csrftoken: response.data.csrftoken,
+                    mid: response.data.mid,
+                    ipuser: response.data.ipuser,
+                    choice: 0,
+                }
+                await AsyncStorage.setItem(CONSTANT.KEY_SESSION_ID, response.data.sessionid);
+                await AsyncStorage.setItem(CONSTANT.KEY_SESSION, JSON.stringify(session));
                 props.setIsLogin(true);
             }
             else if('checkpoint_url' in result)

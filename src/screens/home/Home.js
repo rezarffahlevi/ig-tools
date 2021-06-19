@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { CONSTANT } from '../../helpers/constant';
 import { fetchApi, postApi, fetchCheckAccount } from '../../services/Api';
 import Axios from "axios";
+import UserAgent from 'react-native-user-agent';
 
 const Home = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,11 +34,15 @@ const Home = ({ navigation, route }) => {
       }
 
       const response = await fetchCheckAccount(params);
-      const getIg = await Axios.get(`https://instagram.com/${user.username}/?__a=1`);
+      console.log('response check', response);
+      const getIg = await Axios.get(`https://instagram.com/${user.username}/?__a=1`, {
+        headers: {
+          'User-Agent': UserAgent.getUserAgent(),
+        }
+      });
       setUserInfo(getIg.data.graphql.user);
       // console.log('user', getIg.data.graphql.user);
       setIsLoading(false);
-      // console.log('response check', response.data);
       if (response.data.result) {
         // console.log(response.data.account);
         setMyPoin(response.data.poin);
@@ -53,7 +58,7 @@ const Home = ({ navigation, route }) => {
       }
     } catch (error) {
       setIsLoading(false);
-      console.log('error check', error);
+      console.log('error check', error, error.response);
       Alert.alert('Error', 'Something went wrong!');
     }
 
