@@ -49,7 +49,7 @@ const Login = ({ navigation, route }) => {
         try {
             const response = await fetchApi(params);
             const result = response.data.result;
-            console.log('response login', response);
+            // console.log('response login', response);
             if(result.authenticated)
             {
                 let session = {

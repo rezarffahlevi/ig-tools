@@ -47,7 +47,7 @@ const OTP = ({navigation, route}) => {
 
             const res = await postApi(method, session);
             const result = res?.data?.result;
-            console.log('res', method)
+            // console.log('res', method)
             if(res.data.sessionid)
             {
                 await AsyncStorage.setItem(CONSTANT.KEY_SESSION_ID, res.data.sessionid);

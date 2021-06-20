@@ -34,7 +34,7 @@ const Home = ({ navigation, route }) => {
       }
 
       const response = await fetchCheckAccount(params);
-      console.log('response check', response);
+      // console.log('response check', response);
       const getIg = await Axios.get(`https://instagram.com/${user.username}/?__a=1`, {
         headers: {
           'User-Agent': UserAgent.getUserAgent(),
